@@ -1,0 +1,12 @@
+--- ../Adb-Root-Enabler/system.prop	2024-07-31 17:11:27
++++ ../Adb-Root-Enabler/system.prop	2024-07-31 10:32:03
+@@ -3,4 +3,7 @@
+ 
+ persist.service.adb.enable=1
+ persist.service.debuggable=1
+-persist.sys.usb.config=mtp,adb
+\ No newline at end of file
++persist.sys.usb.config=adb
++
++service.adb.root=1
++

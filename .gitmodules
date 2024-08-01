@@ -1,0 +1,6 @@
+[submodule "Adb-Root-Enabler"]
+	path = Adb-Root-Enabler
+	url = https://github.com/anasfanani/Adb-Root-Enabler.git
+[submodule "magic_overlayfs"]
+	path = magic_overlayfs
+	url = https://github.com/HuskyDG/magic_overlayfs
