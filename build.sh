@@ -43,8 +43,8 @@ EOF
     fi
 done
 
-cat out/magisk-module/service.sh >> out/magisk-module/post-fs-data.sh
-mv out/magisk-module/post-fs-data.sh out/magisk-module/service.sh
+#cat out/magisk-module/service.sh >> out/magisk-module/post-fs-data.sh
+#mv out/magisk-module/post-fs-data.sh out/magisk-module/service.sh
 
 cp ../Adb-Root-Enabler/sepolicy.rule out/magisk-module/
 cp ../Adb-Root-Enabler/system.prop out/magisk-module/
