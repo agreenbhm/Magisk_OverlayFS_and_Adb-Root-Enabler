@@ -1,0 +1,116 @@
+--- magic_overlayfs/magisk-module/module.prop	2024-07-31 17:12:34
++++ magic_overlayfs/magisk-module/module.prop	2024-08-01 10:48:34
+@@ -1,7 +1,6 @@
+-id=magisk_overlayfs
+-name=Magical Overlayfs
+-author=HuskyDG
+-version=v3.2.2
+-versionCode=30202
+-description=Use OverlayFS to make read-only system partitions become read-write partitions. OverlayFS MUST be supported by kernel!
+-updateJson=https://github.com/huskydg/magic_overlayfs/releases/latest/download/update_release.json
++id=magisk_overlayfs+adb-root-enabler
++name=Magical Overlayfs + Adb-Root-Enabler
++author=HuskyDG + anasfanani, merged by agreenbhm
++version=v3.2.2+v1.2
++versionCode=1
++description=Use OverlayFS to make read-only system partitions become read-write partitions. OverlayFS MUST be supported by kernel! + Enable ADB root & authenticate
+
+--- magic_overlayfs/magisk-module/customize.sh	2024-08-01 13:10:23
++++ magic_overlayfs/magisk-module/customize.sh	2024-08-01 13:14:57
+@@ -19,19 +19,11 @@
+ 
+ loop_setup() {
+   unset LOOPDEV
+-  local LOOP
+-  local MINORX=1
+-  [ -e /dev/block/loop1 ] && MINORX=$(stat -Lc '%T' /dev/block/loop1)
+-  local NUM=0
+-  while [ $NUM -lt 1024 ]; do
+-    LOOP=/dev/block/loop$NUM
+-    [ -e $LOOP ] || mknod $LOOP b 7 $((NUM * MINORX))
+-    if losetup $LOOP "$1" 2>/dev/null; then
+-      LOOPDEV=$LOOP
+-      break
+-    fi
+-    NUM=$((NUM + 1))
+-  done
++
++  LOOPDEV=$(losetup -s -f "$1")
++  if [[ $? -ne 0 ]]; then
++     unset LOOPDEV
++  fi
+ }
+ 
+ randdir="$TMPDIR/.$(head -c21 /dev/urandom | base64)"
+@@ -68,6 +60,8 @@
+                      mode.sh \
+                      mount.sh \
+                      uninstall.sh \
++                     sepolicy.rule \
++                     system.prop \
+                      module.prop \
+                      "libs/$ABI/overlayfs_system" \
+                      -d "$MODPATH"
+
+--- magic_overlayfs/magisk-module/util_functions.sh	2024-08-01 15:43:20
++++ magic_overlayfs/magisk-module/util_functions.sh	2024-08-01 15:43:59
+@@ -12,19 +12,11 @@
+ 
+ loop_setup() {
+   unset LOOPDEV
+-  local LOOP
+-  local MINORX=1
+-  [ -e /dev/block/loop1 ] && MINORX=$(stat -Lc '%T' /dev/block/loop1)
+-  local NUM=0
+-  while [ $NUM -lt 2048 ]; do
+-    LOOP=/dev/block/loop$NUM
+-    [ -e $LOOP ] || mknod $LOOP b 7 $((NUM * MINORX))
+-    if losetup $LOOP "$1" 2>/dev/null; then
+-      LOOPDEV=$LOOP
+-      break
+-    fi
+-    NUM=$((NUM + 1))
+-  done
++
++  LOOPDEV=$(losetup -s -f "$1")
++  if [[ $? -ne 0 ]]; then
++     unset LOOPDEV
++  fi
+ }
+ 
+ sizeof(){
+@@ -97,4 +89,4 @@
+ fi
+ 
+ return 1
+-}
+\ No newline at end of file
++}
+
+--- magic_overlayfs/magisk-module/post-fs-data.sh	2024-08-01 15:43:24
++++ magic_overlayfs/magisk-module/post-fs-data.sh	2024-08-01 15:43:48
+@@ -25,19 +25,11 @@
+ 
+ loop_setup() {
+   unset LOOPDEV
+-  local LOOP
+-  local MINORX=1
+-  [ -e /dev/block/loop1 ] && MINORX=$(stat -Lc '%T' /dev/block/loop1)
+-  local NUM=0
+-  while [ $NUM -lt 2048 ]; do
+-    LOOP=/dev/block/loop$NUM
+-    [ -e $LOOP ] || mknod $LOOP b 7 $((NUM * MINORX))
+-    if losetup $LOOP "$1" 2>/dev/null; then
+-      LOOPDEV=$LOOP
+-      break
+-    fi
+-    NUM=$((NUM + 1))
+-  done
++
++  LOOPDEV=$(losetup -s -f "$1")
++  if [[ $? -ne 0 ]]; then
++     unset LOOPDEV
++  fi
+ }
+ 
+ if [ -f "$OVERLAYDIR" ]; then

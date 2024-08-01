@@ -14,8 +14,7 @@ export PATH=${PATH}:${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bi
 
 cd ..
 patch -p0 < Adb-Root-Enabler.patch
-patch -p0 < module.prop.patch
-patch -p0 < customize.sh.patch
+patch -p0 < magic_overlayfs.patch
 cd magic_overlayfs
 
 rm -rf out
