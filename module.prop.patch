@@ -1,5 +1,5 @@
---- magisk-module/module.prop	2024-07-31 17:12:34
-+++ magisk-module/module.prop	2024-08-01 10:48:34
+--- magic_overlayfs/magisk-module/module.prop	2024-07-31 17:12:34
++++ magic_overlayfs/magisk-module/module.prop	2024-08-01 10:48:34
 @@ -1,7 +1,6 @@
 -id=magisk_overlayfs
 -name=Magical Overlayfs

@@ -12,8 +12,11 @@ ANDROID_NDK_HOME="${1:-$NDK_DEFAULT}"
 
 export PATH=${PATH}:${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin
 
-patch < ../Adb-Root-Enabler.patch
-patch < ../module.prop.patch
+cd ..
+patch -p0 < Adb-Root-Enabler.patch
+patch -p0 < module.prop.patch
+patch -p0 < customize.sh.patch
+cd magic_overlayfs
 
 rm -rf out
 mkdir -p out

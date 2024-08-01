@@ -31,8 +31,7 @@ jobs:
         chmod 777 ./build.sh
         ./build.sh
     - name: Upload release
-      working-directory: ./magic_overlayfs
       uses: actions/upload-artifact@v3
       with:
-        name: magisk-overlayfs+adb-root-enabler_release
-        path: out/magisk-module
+        name: magisk-overlayfs_and_adb-root-enabler_release
+        path: magic_overlayfs/out/magisk-module
