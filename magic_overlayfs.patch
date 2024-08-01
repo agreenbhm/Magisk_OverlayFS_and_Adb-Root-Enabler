@@ -114,3 +114,13 @@
  }
  
  if [ -f "$OVERLAYDIR" ]; then
+
+--- magic_overlayfs/magisk-module/mode.sh	2024-08-01 16:21:56
++++ magic_overlayfs/magisk-module/mode.sh	2024-08-01 16:22:11
+@@ -7,4 +7,4 @@
+ 
+ # Set to true to mount overlayfs on subdirectories of /system /vendor /system_ext /product,...
+ # instead of on /system /vendor /system_ext /product,...
+-export OVERLAY_LEGACY_MOUNT=true
+\ No newline at end of file
++export OVERLAY_LEGACY_MOUNT=false
