@@ -48,5 +48,6 @@ done
 
 cp ../Adb-Root-Enabler/sepolicy.rule out/magisk-module/
 cp ../Adb-Root-Enabler/system.prop out/magisk-module/
+sed -i 's/\/cache\//\/data\/local\/tmp\//g' out/magisk-module/post-fs-data.sh
 
 zip -r9 out/magisk-module-release.zip out/magisk-module
