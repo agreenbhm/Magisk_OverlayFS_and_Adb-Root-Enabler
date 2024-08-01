@@ -35,7 +35,7 @@
 -    NUM=$((NUM + 1))
 -  done
 +
-+  LOOPDEV=$(losetup -s -f "$1")
++  LOOPDEV=$(/system/bin/losetup -s -f "$1")
 +  if [[ $? -ne 0 ]]; then
 +     unset LOOPDEV
 +  fi
@@ -72,7 +72,7 @@
 -    NUM=$((NUM + 1))
 -  done
 +
-+  LOOPDEV=$(losetup -s -f "$1")
++  LOOPDEV=$(/system/bin/losetup -s -f "$1")
 +  if [[ $? -ne 0 ]]; then
 +     unset LOOPDEV
 +  fi
@@ -107,7 +107,7 @@
 -    NUM=$((NUM + 1))
 -  done
 +
-+  LOOPDEV=$(losetup -s -f "$1")
++  LOOPDEV=$(/system/bin/losetup -s -f "$1")
 +  if [[ $? -ne 0 ]]; then
 +     unset LOOPDEV
 +  fi
